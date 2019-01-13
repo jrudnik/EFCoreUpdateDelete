@@ -10,9 +10,11 @@ namespace EFCoreUpdateDelete
     {
         static void Main(string[] args)
         {
-            UpdateWithSelect();
+            //UpdateWithSelect();
 
             //UpdateWithoutSelect();
+
+            //DeleteWithoutSelect();
 
             Console.ReadLine();
         }
@@ -36,6 +38,17 @@ namespace EFCoreUpdateDelete
                 db.Players.Attach(playerToEdit);
                 playerToEdit.PlayerLastNate = "RUDNIK";
                 playerToEdit.PlayerName = "New Name";
+                db.SaveChanges();
+            }
+        }
+
+        private static void DeleteWithoutSelect()
+        {
+            using (var db = new DbNbaPlayerContext())
+            {
+                NbaPlayer playerToDelete = new NbaPlayer { Id = 1 };
+                db.Players.Attach(playerToDelete);
+                db.Players.Remove(playerToDelete);
                 db.SaveChanges();
             }
         }
